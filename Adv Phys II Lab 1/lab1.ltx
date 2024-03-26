@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 1 : Oscilloscope Fundamental (Tones) \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Objective}
+\begin{center}
+\normalsize{Can we determine the resonant frequency of a tuning fork using a simple circuit and oscilloscope}
+\end{center}
+
+\section{Procedure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.25]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit}
+\end{center}
+
+\begin{noindent}
+\normalsize{The circuit for this lab was fairly straight forward, as it only consisted of 3 components. The only new one to us is a microphone which converts sound waves in the air into electrical signal. The main hurdle for this lab was in using and understanding how to use an oscilloscope. For this we were first instructed to do some simple exericises to get familiar with the machine such as, messing with amplitudes, frequencies, wave types, generating waves, and etc.}
+\\[2pt]
+\normalsize{The main experiment for this lab was to measure the frequency of a tuning fork, and compare it with the mathematical evaluation based on measurements. To do this we can change the oscilliscope to measure as an fft. After that the entire lab can be completed in about 5 minutes.}
+\end{noindent}
+
+\section{Raw Data}
+\begin{noindent}
+\normalsize{Using the FFT function on the oscillascope we obtained this graph on the screen. I then took an average over 16, and printed the results onto a floppy disk. Below is the result I obtained.} 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.3]{pleasework}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 2: Screenshot of Oscillascope}
+\end{center}
+
+\section{Interpolated Data}
+\normalsize{We also were given a csv file for our data, which we can interpolate using python and a simple script. Below is the graph of the first 2000Hz, with the peak marked. Link to Code: \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab1-Tuning-Fork.py}{Code}. Link to Data: \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab1-Oscillascope-Data}{Data}} 
+\end{noindent}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.4]{fork}
+\end{center}
+\end{figure}
+\\[2pt]
+\normalsize{Using this we can see that the frequency I obtained was marked at 892.7 Hz. We can also use a mathematical expression to calculate the frequency by the physical properties of the tuning fork.} 
+\begin{equation}
+f=\frac{1.875^2}{2 \pi L^2}\sqrt{\frac{Ea^2}{12\rho}}=\frac{1.875^2}{2 \pi 0.076^2}\sqrt{\frac{2e+11*0.0065^2}{12*8000}}=908.84 Hz
+\end{equation}
+\normalsize{Where L is the length of the prongs in meters, E is Young's modulus for steel in Pa, a is the width of the prongs, and $\rho$ is the density of the material in kg*m\textsuperscript{-3}. Link to the source of the equation: \href{https://davis68.github.io/me498cf-fa16/homework/ahw1.pdf}{Source}} 
+\\[2pt]
+\normalsize{The difference between the two values is very small, only 1.8 percent.} 
+\end{document}

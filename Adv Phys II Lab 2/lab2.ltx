@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 2 : Speed of Sound in Metal\\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Objective}
+\begin{center}
+\normalsize{Can we determine the speed of sound in metal by using oscilloscope analysis?}
+\end{center}
+
+\section{Procedure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.075]{setup}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Setup of Experiment}
+\end{center}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.2]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 2: Circuit Diagram}
+\end{center}
+
+\begin{indent}
+\normalsize{If we measure when we first hit an aluminum rod and compare it to when the sound hits the other side, we can measure how long sound takes to propogate through the rod. Using this and the length of the rod, we can find the speed of sound in the material using simple physics. The circuit has two interconnected components. First we have to measure when the mallet hits the rod. Since both the rod and mallet are metal we can use them as conductive wires to send a voltage accross and measure it. Secondly we have to measure when the sound reaches the end. To do this we can stick a Piazo at the end of the rod. Since sound is just pressure waves, the piazo will convert that pressure into a voltage that we can measure over time.}
+\end{indent}
+
+\section{Test 1 \\[2pt]}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.5]{test1}
+\end{center}
+\end{figure}
+\begin{indent}
+\normalsize{My first test might be a bit skewed. This is the only test that I didn't have to amplify the Piazo's voltage because I hit it really hard. So Instead of measuring the speed of sound, I ended up measuring how fast the aluminum rod moved after being hit, which for the record was 2.32E-4 seconds or .232 milliseconds. I found this value with a little line of code that marked the first value greater than a certain threshold. The threshold was arbitrary and was set to be greater than the maximum amplitude of the background noise, or .04 volts.} 
+\end{indent}
+
+\section{Test 2 \\[2pt]}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.5]{test2}
+\end{center}
+\end{figure}
+\begin{indent}
+\normalsize{My second test was a lot more promising. I hit the aluminum rod lightly and had to amplify the voltage after the fact. My line of code didnt work for this one and instead gave me a value after the sinusoidal pattern emerged. To remedy this i placed the mark where it felt appropriate based on my judgement, this will lead to a large error later however, I didn't find another way to do it automatically. With this test we obtained a propogation time of 2.72E-4 seconds or .272 milliseconds. I did this one more time however, when I looked at the test-3 file I realized it was a mirror duplicate of test 2, which means it got written over. \\[30pt]}
+\end{indent}
+
+\section{Test 3 \\[2pt]}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.5]{test3}
+\end{center}
+\end{figure}
+\begin{indent}
+\normalsize{My hypothesis is that there is a way to calculate the speed of wave in sound without needing to know when then wave begins. I believe using the sinusoidal properties we can determine the speed of propogation based on the time distance between successive peaks. These peaks in order are at: .48ms, .86ms, 1.21ms, and 1.58ms. Giving an average distance of .367ms. These peaks were found manually so their error margin will be large.}
+\end{indent}
+
+\section{Mathematical Processing}
+\begin{indent}
+\normalsize{The data is a bit all over the place. From the 3 tests I got values of .232ms, .272ms, and .367ms. I forgot to measure the length of the rod so Chris told me it was 91cm. Hopefully he's good with a ruler. If we convert the test values into seconds, and the length to meters, and then plug everthing into the following equation.}
+\end{indent}
+\begin{center}
+\begin{equation}
+Velocity = \frac{Distance}{Time} = \frac{Length}{Time}
+\end{equation}
+\end{center}
+\begin{indent}
+\normalsize{We obtain the following values: 3,922.4m/s for test 1, 3,345.6m/s for test 2, and 2,479.6m/s for test 3. However I wouldn't be a good physicists if I didnt get an error that matched my experiments. Thus we use the following equation:}
+\end{indent}
+\begin{center}
+\begin{equation}
+VelocityError = Velocity*(\frac{TimeUncertainty}{Time}+\frac{LengthUncertainty}{Length})
+\end{equation}
+\begin{equation}
+VelocityError1 = 3922.4*(\frac{0.000004}{0.000232}+\frac{.001}{.91}) = 71.9
+\end{equation}
+\begin{equation}
+VelocityError2 = 3345.6*(\frac{0.000016}{0.000272}+\frac{.001}{.91}) = 235.0
+\end{equation}
+\begin{equation}
+VelocityError3 = 2479.6*(\frac{0.00002}{0.000367}+\frac{.001}{.91}) = 218.1
+\end{equation}
+\end{center}
+
+\section{Mathematical Analysis}
+\begin{indent}
+\normalsize{At the end of this experiment I got the following values: 3,922.4 +/- 71.9 m/s for test 1, 3,345.6 +/- 235 m/s for test 2, and 2,479.6 +/- 218.1 m/s for test 3. The actual speed through aluminum is 3,100m/s. The closest I got was on test 2 which the lower bound is 3,110.5m/s, but that's assuming maximum error. In other words, this experiment failed however, that's good. You can't always have winners, and honestly I felt that I rushed this lab a little so I learned that I need to do more trials, and double check that I don't accidentally delete my own data. Was my hypothesis that we can find the length purely based on the frequency correct? Nope, not even close. But with the frequency we obtained, and the length of the rod we can figure out that the rod was in it's 2nd overtone. So that's neat.}
+\end{indent}
+
+\section{Sources}
+\normalsize{-Geeks For Geeks, Get the Index of First Element Greater than K. \href{https://www.geeksforgeeks.org/python-get-the-index-of-first-element-greater-than-k/}{Link}\\[1pt]}
+\normalsize{-Se-yuen Mak, Measurement of the Seed of Sound in a Metal Rod. \href{http://seniorphysics.com/physics/PhysicsEducation_V35(6)_2000.pdf}{Link} (only used for the overtone definition)\\[1pt]}
+\normalsize{-J. Hedberg, Lab 2: Speed of Sound. \href{https://hedberg.ccnysites.cuny.edu/PHYS471/experiments/speed-of-sound-rod/}{Link}\\[1pt]}
+
+\section{Data and Code}
+\normalsize{-Test 1 Data \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-Test-1.csv}{Link}\\[1pt]}
+\normalsize{-Test 2 Data \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-Test-2.csv}{Link}\\[1pt]}
+\normalsize{-Test 3 Data \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-Test-4.csv}{Link}\\[1pt]}
+\normalsize{-Test 1 Code \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-test-1.py}{Link}\\[1pt]}
+\normalsize{-Test 2 Code \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-test-2.py}{Link}\\[1pt]}
+\normalsize{-Test 3 Code \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-test-4.py}{Link}\\[1pt]}
+
+
+
+\end{document}

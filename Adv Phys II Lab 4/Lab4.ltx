@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 4 : Lockin Amplifier Light Detection\\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Objective}
+\begin{center}
+\normalsize{Can we use the lockin amplifier to measure increasingly more obstructed light, and then use that data to construct a graph similar to our theory.}
+\end{center}
+
+\section{Setup}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.15]{Combined}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Picture of Setup\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space Figure 2: Dragram of Setup\space\space}
+\end{center}
+
+
+\begin{noindent}
+\normalsize{Being our last lab before the practical, the setup was rather heavy. First we used a function generator to create a wave at 400hz. This wave was split to two seperate components, one as a reference for a lock-in amplifier. The other connection was split between an Oscilloscope to keep track of our frequency, and a red laser. This red laser would pass through a aperature at set diameters, and then into a light sensor. This light sensor then gave its signal to the lock-in amplifier. The lock-in amplifier than compares the reference signal to the light sensor's signal to find the intensity of the beam of light.\\[5pt]}
+\normalsize{Because of the reference signal, the lock-in amplifier already knew what frequency to measure at, and would give me a measured voltage. I would then write down the voltage into my notes and repeat the trial for 4 total attempts.}
+
+\section{Code}
+\normalsize{For my code, I decided against using the numpy generate from text to use my csv. I found that process very restricting and would much rather have an array that I can manipulate however I want. So instead I used pandas to convert the csv into a 2d-array. Using this, I created lists of the values I got for each trial, I also created a reference list of all the aperatures. I plotted each trial as a seperate color, and eventually plotted our theoretical prediciton in black. As for all my other changes to the code, that will be covered in the following section.}
+
+\end{noindent}
+
+\newpage
+
+\section{Data}
+\normalsize{This lab's data is very simple, because of that trying to record everything digitally would be more tedious than just writing it down. In total I did 4 trials, and as I did these trials I kept correcting for slight errors, hopefully this will show as the measurements get closer and closer to theory. For Trial 1 in Red, I did it normally with little regard. Trial 2 in Yellow, I realized I should press autophase before I make a calculation so that it is more consistent. For Trial 3 in Green, I realized that the angle the laser hits the aperature at greatly effects the intensity of the light, so I started to allign everything with the wood grain of the table. For Trial 4 in Blue, I realized that my Ipad would shine light, as well as my face reflected light onto the sensor so I took started sitting behind the sensor, I also started to write down the absolute maximum voltage I could find while adjusting the aperature position.}
+
+\subsection{Voltage Versus Diameter}
+\normalsize{Here is the data of the intensity versus the diameter of the aperature.}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.8]{Diameter}
+\end{center}
+\end{figure}
+
+\newpage
+
+\subsection{Voltage Versus Diameter Squared}
+
+\normalsize{However, As we remember in Physics 207, Intensity is a function of Area}
+\begin{noindent}
+\begin{equation}
+Intensity=Power*Area
+\end{equation}
+\normalsize{We now Assume that I is proportional to Voltage Out, and that Power is Proportional to Voltage In, as well as replace Area with it's definition}
+\begin{equation}
+V_{out}=V_{in}*\frac{\pi}{4}d^2
+\end{equation}
+\normalsize{The important part for us right now, is that all these are constant per trial except for diameter thus the relationship}
+\begin{equation}
+V_{out} \propto d^2
+\end{equation}
+\normalsize{In other words, we should probably compare voltage to the diameter squared. Doing that we get the following graph.}
+\end{noindent}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.8]{Area}
+\end{center}
+\end{figure}
+
+\normalsize{These should be straight lines, but for whatever reason they all fall off at low aperatures.}
+
+\newpage
+
+\subsection{Theory and Normalization}
+
+\begin{noindent}
+\normalsize{How does our data compare to theory? To answer this question, we must first look at one of our previous equations.}
+\begin{equation}
+V_{out}=V_{in}*\frac{\pi}{4}d^2
+\end{equation}
+\normalsize{If we set the diameter to 2, our largest size we get the following relationship.}
+\begin{equation}
+V_{2,out}=V_{in}*\pi
+\end{equation}
+\normalsize{We can now use this to normalize all our equations so that at a diameter of 4, the voltage is always 1V}
+\begin{equation}
+V_{normal}=\frac{V_{out}}{V_{2,out}} = \frac{d^2}{4}
+\end{equation}
+\normalsize{To do this in python, we devide each value in our trial by the value given with a 2mm aperature. As a result of this normalization, our equation for theory can apply to all trials at once and it is very easy. In theory, at an aperature of d=0, intensity should be 0. At our max aperature 2mm, all voltages are normalized to give 1V. So our theoretical prediction is a line at origin with a slope of a fourth, very simple. Here's what that graph looks like with our theoretical prediction in black.}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.8]{Normalized}
+\end{center}
+\end{figure}
+
+\normalsize{What we see is that Trial 4 was the closest to our theoretical prediction and 2 was right behind, but trials 1 and 3 are not very good. Why is this?. From what I see is that red and green where the higher intensity beams, I know that each laser was dialated larger than the aperature size, so there should be no discrepancy between a higher and lower starting voltage. However, after thinking about it for longer, I know exactly why the higher voltages are worse off. I overloaded the Lock-In Amplifier. My guess is that with higher intensities, The lock-in will reduce the apparant voltage coming through in order to not break. Another reason could be that the photo-transistor sensor was getting overloaded, but I can't prove that. My guess is that at a certain point the transistor gets close to it's maximum opened state and starts to curve off at higher values.}
+
+\end{noindent}
+
+\newpage
+
+\section{Links to Data and Code}
+\normalsize{-CSV File of Data \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-4-Trials.csv}{Link}\\[1pt]}
+\normalsize{-Python Code for Trial Graphs \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/lab-4-Graphs.py}{Link}\\[1pt]}
+
+
+\end{document}

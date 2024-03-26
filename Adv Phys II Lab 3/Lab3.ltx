@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 3 : Replotl\\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Objective}
+\begin{center}
+\normalsize{Can we plot raw data from another scientific paper}
+\end{center}
+
+\section{Data}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=1]{Figure}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Average Temperature Change in the US between Years}
+\end{center}
+
+
+\begin{indent}
+\normalsize{This data was collected from the International Monetary Fund's Climate Change Data found on their website. Their csv contained many challenges, that I had to work around. Up until now I've primarily dealt with vertical csv's, but this one was horizontal. So, I had to learn how to fully work with 2D arrays instead of using shortcuts. Their csv contained both words and numbers which the np.genfromtext function is known to fail at. So, I had to learn to use pandas to convert the csv into an array.}
+\\[10pt]
+\normalsize{The data shows that temperature change has been increasing linearly with fluctuations. And since this data is measuring change over time, it's basically the temperature's derivative. Meaning that the total temperature has been increasing exponentially over the years.}
+\end{indent}
+
+\newpage
+
+\section{Sources}
+\normalsize{-IMF Climate Change Data \href{https://climatedata.imf.org/pages/climatechange-data}{Link}\\[1pt]}
+
+\section{Data and Code}
+\normalsize{-Python Code \href{https://github.com/OlafPBach/Advanced-Physics-Lab-2/blob/main/Lab-2-Test-1.csv}{Link}\\[1pt]}
+
+
+
+\end{document}
